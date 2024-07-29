@@ -1,3 +1,12 @@
+![image](https://github.com/user-attachments/assets/6d2ed85b-da69-4d0d-94fe-be2ba4e107c6)
+
+
+
+![image](https://github.com/user-attachments/assets/e12f5d03-75d9-4b67-8017-3a24aaadadf4)
+
+
+
+
 ## To run this Laravel app locally, follow these steps:
 
 ### Step 1: Clone the repository

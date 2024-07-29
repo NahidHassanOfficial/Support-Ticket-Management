@@ -11,8 +11,8 @@ class TicketFormController extends Controller
 {
     public function __construct()
     {
-        //maximum 1 ticket creation in a minute
-        $this->middleware('throttle:1,1')->only('store');
+        //maximum 30 ticket creation in a minute
+        $this->middleware('throttle:30,1')->only('store');
     }
 
     /**
@@ -39,14 +39,16 @@ class TicketFormController extends Controller
         $request->validated();
         $postData = $request->all();
 
-        $fileName = null;
-        if ($request->hasFile('attachment')) {
-            $attachment = $request->file('attachment');
-            $fileName = 'ticket_' . time() . $postData['user_id'] . '.' . $attachment->getClientOriginalExtension();
-            $attachment->storeAs('attachments', $fileName, 'public');
+        $fileNames = [];
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $attachment) {
+                $fileName = 'ticket_' . time() . rand(101, 999) . '.' . $attachment->getClientOriginalExtension();
+                $attachment->storeAs('attachments', $fileName, 'public');
+                $fileNames[] = $fileName;
+            }
         }
         Ticket::create([
-            'authorName' => fake()->name('mixed'), 'author_id' => $postData['user_id'], 'ticketTitle' => $postData['title'], 'description' => $postData['description'], 'attachment' => $fileName, 'severity' => $postData['severity'], 'status' => fake()->randomElement(['Open', 'Closed']),
+            'authorName' => fake()->name('mixed'), 'author_id' => $postData['user_id'], 'ticketTitle' => $postData['title'], 'description' => $postData['description'], 'attachments' => $fileNames ? json_encode($fileNames) : null, 'severity' => $postData['severity'], 'status' => fake()->randomElement(['Open', 'Closed']),
         ]);
 
         return redirect()->back()->with([

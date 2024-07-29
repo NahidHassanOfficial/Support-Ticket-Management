@@ -23,26 +23,35 @@
                     <p class="fs-3 fw-bold">{{ $ticket->ticketTitle }}</p>
                     <p class="description ">{{ $ticket->description }}</p>
 
-                    <div class="attachments d-flex gap-2">
+                    <div class="attachments d-flex gap-2 flex-wrap">
                         @if (!empty($ticket->attachment))
-                            <!-- Button trigger modal -->
-                            <button type="button" class="rounded-pill bg-success-subtle btn btn-sm"
-                                data-bs-toggle="modal" data-bs-target="#ticket-modal-{{ $ticket->id }}">
-                                {{ $ticket->attachment }}
-                            </button>
+                            @php
+                                $attachments = json_decode($ticket->attachment, true);
+                            @endphp
+                            @if ($attachments !== null)
+                                @foreach ($attachments as $attachment)
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="rounded-pill bg-success-subtle btn btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#ticket-modal-{{ $ticket->id }}-{{ $loop->iteration }}">
+                                        Attachment-{{ $loop->iteration }}
+                                    </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="ticket-modal-{{ $ticket->id }}" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+                                    <!-- Modal -->
+                                    <div class="modal fade"
+                                        id="ticket-modal-{{ $ticket->id }}-{{ $loop->iteration }}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
 
-                                        <img src="{{ route('showImage', ['filename' => $ticket->attachment]) }}"
-                                            alt="Image">
+                                                <img src="{{ route('showImage', ['filename' => $attachment]) }}"
+                                                    alt="Image">
 
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                @endforeach
+                            @endif
                         @endif
                     </div>
 
@@ -50,7 +59,7 @@
                 </div>
 
                 <div class="align-self-end">
-                    <form action="{{ route('tickets.update', $ticket->id) }}" method="POST">
+                    <form action="{{ route('tickets.update', $ticket->ticket_id) }}" method="POST">
                         @method('PATCH')
 
                         <input type="hidden" name="closedBy" value="{{ 4 }}">

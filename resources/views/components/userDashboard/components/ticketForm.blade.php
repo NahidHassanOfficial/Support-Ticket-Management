@@ -24,8 +24,11 @@
                <textarea class="form-control mb-3" name="description" id="description" rows="3">{{ old('description') }}</textarea>
 
                <label for="attachment" class="form-label">Attach Media (Optional)</label>
-               <input type="file" name="attachment" id="attachment" class="w-50">
-               @error('attachment')
+               <input type="file" name="attachments[]" id="attachment" class="w-50" multiple>
+               @error('attachments')
+                   <span class="text-danger">{{ $message }}</span>
+               @enderror
+               @error('attachments.*')
                    <span class="text-danger">{{ $message }}</span>
                @enderror
                <button type="submit" class="btn btn-primary  mt-3">Submit</button>

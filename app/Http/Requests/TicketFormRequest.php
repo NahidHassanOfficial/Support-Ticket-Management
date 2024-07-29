@@ -24,7 +24,8 @@ class TicketFormRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            'attachment' => 'image',
+            'attachments' => 'array|max:3',
+            'attachments.*' => 'image|max:2048',
         ];
     }
 }

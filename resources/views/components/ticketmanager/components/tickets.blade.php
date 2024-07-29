@@ -24,23 +24,23 @@
                     <p class="description ">{{ $ticket->description }}</p>
 
                     <div class="attachments d-flex gap-2 flex-wrap">
-                        @if (!empty($ticket->attachment))
+                        @if (!empty($ticket->attachments))
                             @php
-                                $attachments = json_decode($ticket->attachment, true);
+                                $attachments = json_decode($ticket->attachments, true);
                             @endphp
                             @if ($attachments !== null)
                                 @foreach ($attachments as $attachment)
                                     <!-- Button trigger modal -->
                                     <button type="button" class="rounded-pill bg-success-subtle btn btn-sm"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#ticket-modal-{{ $ticket->id }}-{{ $loop->iteration }}">
+                                        data-bs-target="#ticket-modal-{{ $ticket->ticket_id }}-{{ $loop->iteration }}">
                                         Attachment-{{ $loop->iteration }}
                                     </button>
 
                                     <!-- Modal -->
                                     <div class="modal fade"
-                                        id="ticket-modal-{{ $ticket->id }}-{{ $loop->iteration }}" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        id="ticket-modal-{{ $ticket->ticket_id }}-{{ $loop->iteration }}"
+                                        tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
 

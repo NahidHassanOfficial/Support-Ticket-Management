@@ -1,4 +1,4 @@
-   <div class="card w-50 bg-light  text-start p-3 overflow-hidden d-flex flex-column justify-content-evenly">
+   <div class="card col-md-4 bg-light  text-start p-3 overflow-hidden d-flex flex-column justify-content-evenly">
 
        <div class="">
            <form enctype="multipart/form-data" action="{{ route('form.store') }}" method="post"
@@ -24,7 +24,7 @@
                <textarea class="form-control mb-3" name="description" id="description" rows="3">{{ old('description') }}</textarea>
 
                <label for="attachment" class="form-label">Attach Media (Optional)</label>
-               <input type="file" name="attachments[]" id="attachment" class="w-50" multiple>
+               <input type="file" name="attachments[]" id="attachment" class="col-md-5 col-sm-10" multiple>
                @error('attachments')
                    <span class="text-danger">{{ $message }}</span>
                @enderror

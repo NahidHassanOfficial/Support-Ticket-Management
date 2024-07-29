@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
+            $table->id('ticket_id');
             $table->string('authorName');
             $table->string('author_id');
             $table->string('ticketTitle');
             $table->text('description');
-            $table->string('attachment')->nullable();
+            $table->string('attachments')->nullable();
             $table->enum('severity', ['Low', 'Medium', 'High']);
             $table->enum('status', ['Open', 'Closed']);
             $table->string('closedBy')->nullable();

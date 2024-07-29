@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     protected $fillable = [
-        'author_id', 'authorName', 'ticketTitle', 'description', 'attachment', 'severity', 'status', 'closedBy',
+        'author_id', 'authorName', 'ticketTitle', 'description', 'attachments', 'severity', 'status', 'closedBy',
     ];
+
+    protected $primaryKey = 'ticket_id';
 
     use HasFactory;
 }

@@ -10,4 +10,4 @@ Route::get('/', function () {
 });
 Route::resource('form', TicketFormController::class);
 Route::resource('tickets', TicketController::class);
-Route::get('ticket-image/{filename}', [ImageController::class, 'showImage'])->name('showImage');
+Route::get('ticket-image/{filename}', [ImageController::class, 'showImage'])->name('showImage')->middleware('throttle:60:1');

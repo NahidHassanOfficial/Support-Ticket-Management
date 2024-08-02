@@ -1,4 +1,4 @@
-   <div class="card col-md-4 bg-light  text-start p-3 overflow-hidden d-flex flex-column justify-content-evenly">
+   <div class="card col-md-5 bg-light  text-start p-3 overflow-hidden d-flex flex-column justify-content-evenly">
 
        <div class="">
            <form enctype="multipart/form-data" action="{{ route('form.store') }}" method="post"

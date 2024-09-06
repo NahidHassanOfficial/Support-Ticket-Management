@@ -59,18 +59,9 @@
                 </div>
 
                 <div class="align-self-end">
-                    <form action="{{ route('tickets.update', $ticket->ticket_id) }}" method="POST">
-                        @method('PATCH')
-
-                        <input type="hidden" name="closedBy" value="{{ 4 }}">
-                        <input type="hidden" name="status"
-                            value="{{ $ticket->status == 'Open' ? 'Closed' : 'Open' }}">
-
-                        <button
-                            class="btn {{ $ticket->status == 'Open' ? 'btn-outline-success' : 'btn-outline-warning' }}">
-                            {{ $ticket->status == 'Open' ? 'Mark Closed' : 'Mark Open' }}
-                        </button>
-
-                    </form>
+                    <button class="btn {{ $ticket->status == 'Open' ? 'btn-outline-success' : 'btn-outline-warning' }}"
+                        onclick="updateTicketStatus('{{ $ticket->status }}', '{{ route('tickets.update', $ticket->ticket_id) }}')">
+                        {{ $ticket->status == 'Open' ? 'Mark Closed' : 'Mark Open' }}
+                    </button>
                 </div>
             </div>

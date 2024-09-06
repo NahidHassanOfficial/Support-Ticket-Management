@@ -35,7 +35,7 @@ class TicketController extends Controller
             });
         }
 
-        $data = $query->get();
+        $data = $query->paginate(10)->withQueryString();
 
         return view('layouts.admin.dashboard', compact('data'));
 
@@ -84,12 +84,12 @@ class TicketController extends Controller
     {
         $validatedData = $request->validate([
             'status' => 'required|in:Open,Closed',
-            'closedBy' => 'sometimes|required_if:status,Closed|integer',
+            // 'closedBy' => 'sometimes|required_if:status,Closed|integer',
             // |exists:users,id
         ]);
 
         $ticket->update($validatedData);
-        return redirect()->back();
+        return response()->json(['message' => 'Ticket updated successfully']);
     }
 
     /**
